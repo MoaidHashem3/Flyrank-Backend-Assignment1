@@ -33,7 +33,7 @@ app.get('/tasks', (req, res) => {
 
 // returns a single task by id
 app.get('/tasks/:id', (req, res) => {
-    
+
   const taskId = parseInt(req.params.id, 10);
   const task = TASKS.find((t) => t.id === taskId);
 
@@ -44,6 +44,28 @@ app.get('/tasks/:id', (req, res) => {
   res.json(task);
 });
 
+// Stage 3
+
+app.post('/tasks', (req, res) => {
+
+  const { title } = req.body;
+
+  if (!title || typeof title !== 'string' || title.trim() === '') {
+    return res.status(400).json({ error: 'Title is required and cannot be empty please make sure to add one' });
+  }
+
+  const nextId = TASKS.length > 0 ? Math.max(...TASKS.map((t) => t.id)) + 1 : 1;
+
+  const newTask = {
+    id: nextId,
+    title: title.trim(),
+    done: false,
+  };
+
+  TASKS.push(newTask);
+
+  res.status(201).json(newTask);
+});
 
 
 app.listen(port, () => {
