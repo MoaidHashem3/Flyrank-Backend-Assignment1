@@ -19,15 +19,15 @@ Once the server is running, you can access the interactive Swagger UI documentat
 **[http://localhost:3000/docs](http://localhost:3000/docs)**
 
 GET ALL
-![GET ALL](Screenshots/get.png)
+![GET ALL](./screenshots/get.png)
 GET BY ID
-![GET BY ID](Screenshots/getbyid.png)
+![GET BY ID](./screenshots/getbyid.png)
 POST
-![POST](Screenshots/post.png)
+![POST](./screenshots/post.png)
 PUT
-![PUT](Screenshots/put.png)
+![PUT](./screenshots/put.png)
 DELETE
-![DELETE](Screenshots/delete.png)
+![DELETE](./screenshots/delete.png)
 
 ---
 
