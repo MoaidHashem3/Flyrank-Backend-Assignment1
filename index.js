@@ -67,6 +67,56 @@ app.post('/tasks', (req, res) => {
   res.status(201).json(newTask);
 });
 
+// Stage 4 
+
+app.put('/tasks/:id', (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  const task = TASKS.find((t) => t.id === taskId);
+
+  
+  if (!task) {
+    return res.status(404).json({ error: `task ${taskId} not found` });
+  }
+
+  const { title, done } = req.body;
+
+  if (title === undefined && done === undefined) {
+    return res.status(400).json({ error: 'you must provide title or done status to update' });
+  }
+
+  
+  if (title !== undefined) {
+    if (typeof title !== 'string' || title.trim() === '') {
+      return res.status(400).json({ error: 'title cant be empty' });
+    }
+    task.title = title.trim();
+  }
+
+ 
+  if (done !== undefined) {
+    if (typeof done !== 'boolean') {
+      return res.status(400).json({ error: 'done status must be a boolean true or false' });
+    }
+    task.done = done;
+  }
+
+  res.json(task);
+});
+
+
+app.delete('/tasks/:id', (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  const taskIndex = TASKS.findIndex((t) => t.id === taskId);
+
+  if (taskIndex === -1) {
+    return res.status(404).json({ error: `task ${taskId} not found` });
+  }
+
+  TASKS.splice(taskIndex, 1);
+
+  res.status(204).send();
+});
+
 
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
